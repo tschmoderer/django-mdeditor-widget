@@ -18,9 +18,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 DEBUG = True
 
-SECRET_KEY = ')#4-te87&hk94p%ur2%mtm4oiw3ac#)wu5m9$7swk3-gk-yk0!'
 SECRET_KEY = '4l0ngs3cr3tstr1ngw3lln0ts0l0ngw41tn0w1tsl0ng3n0ugh'
-
 ROOT_URLCONF = 'example_project.urls'
 
 # Application definition
