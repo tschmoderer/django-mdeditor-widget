@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="django-mdeditor-widget", # Replace with your own username
-    version="0.0.1",
+    version="1.1.0",
     author="Timothée Schmoderer",
     author_email="timothee.schmoderer@netcourrier.com",
     description="Django widget to edit markdown in forms",

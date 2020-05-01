@@ -13,8 +13,8 @@
         /* Configuration editeur */
         editor.setOptions({
             mode: "ace/mode/markdown",
-            maxLines: 30,
-            minLines: 30,
+            maxLines: textarea.getAttribute('rows'),
+            minLines: textarea.getAttribute('rows'),
             autoScrollEditorIntoView: true,
         });
 
@@ -27,7 +27,8 @@
         editor.focus();
 
         /* Logique des onglets */
-        $('#editor-list a').on('click', function (e) {
+        var tabs = $('#editor-list-' + id + ' a'); 
+        tabs.on('click', function (e) {
             e.preventDefault()
             $(this).tab('show')
         })
@@ -51,7 +52,7 @@
         });
 
         /* toolbar logic */
-        toolbar.find($('#btn-bold')).click(function () {
+        toolbar.find('#btn-bold').click(function () {
             editor.insert("**text**");
             editor.find('text', {
                 backwards: true,
@@ -61,7 +62,7 @@
             editor.focus();
         });
 
-        toolbar.find($('#btn-italic')).click(function () {
+        toolbar.find('#btn-italic').click(function () {
             editor.insert("*text*");
             editor.find('text', {
                 backwards: true,
@@ -71,7 +72,7 @@
             editor.focus();
         });
 
-        toolbar.find($('#btn-underline')).click(function () {
+        toolbar.find('#btn-underline').click(function () {
             editor.insert("__text__");
             editor.find('text', {
                 backwards: true,
@@ -81,7 +82,7 @@
             editor.focus();
         });
 
-        toolbar.find($('#btn-strike')).click(function () {
+        toolbar.find('#btn-strike').click(function () {
             editor.insert("~~text~~");
             editor.find('text', {
                 backwards: true,
@@ -91,27 +92,27 @@
             editor.focus();
         });
 
-        toolbar.find($('#btn-header')).click(function () {
+        toolbar.find('#btn-header').click(function () {
             editor.insert("#");
             editor.focus();
         });
 
-        toolbar.find($('#btn-line')).click(function () {
+        toolbar.find('#btn-line').click(function () {
             editor.insert("\n***\n");
             editor.focus();
         });
 
-        toolbar.find($('#btn-list')).click(function () {
+        toolbar.find('#btn-list').click(function () {
             editor.insert("\t* ");
             editor.focus();
         });
 
-        toolbar.find($('#btn-num-list')).click(function () {
+        toolbar.find('#btn-num-list').click(function () {
             editor.insert("\t1. ");
             editor.focus();
         });
 
-        toolbar.find($('#btn-table')).click(function () {
+        toolbar.find('#btn-table').click(function () {
             editor.insert("| Column 1 | Column 2 | Column 3 |\n| -------- |:-------------:| -----:|\n| col 1 is | right-aligned | $1600 |\n| col 2 is | centered      |   $12 |\n| col 3 is | left-aligned  |    $1 |\n ");
 
             editor.find('Column 1', {
@@ -121,7 +122,7 @@
             });
         });
 
-        toolbar.find($('#btn-math')).click(function () {
+        toolbar.find('#btn-math').click(function () {
             editor.insert("$$\nmath\n$$\n");
             editor.find('math', {
                 backwards: true,
@@ -131,7 +132,7 @@
             editor.focus();
         });
 
-        toolbar.find($('#btn-code')).click(function () {
+        toolbar.find('#btn-code').click(function () {
             editor.insert("```\ncode\n```");
             editor.find('code', {
                 backwards: true,
@@ -141,7 +142,7 @@
             editor.focus();
         });
 
-        toolbar.find($('#btn-quote')).click(function () {
+        toolbar.find('#btn-quote').click(function () {
             editor.insert("> ");
             editor.focus();
         });
@@ -155,7 +156,7 @@
             });
         });
 
-        toolbar.find($('#btn-image')).click(function () {
+        toolbar.find('#btn-image').click(function () {
             editor.insert("![image](src)");
             editor.find('image', {
                 backwards: true,
@@ -164,16 +165,16 @@
             });
         });
 
-        toolbar.find($('#btn-undo')).click(function () {
+        toolbar.find('#btn-undo').click(function () {
             editor.undo();
         });
 
-        toolbar.find($('#btn-redo')).click(function () {
+        toolbar.find('#btn-redo').click(function () {
             editor.redo();
         });
 
         /* emoji logic */
-        var smiley = toolbar.find($('#btn-smile'));
+        var smiley = toolbar.find('#btn-smile');
 
         preview_tab.click(function () {
             smiley.popover('hide');
@@ -183,25 +184,28 @@
             html: true,
             title: ' ',
             position: 'bottom',
-            content: toolbar.find($('#emoji-popover-content')).html(),
+            content: toolbar.find('#emoji-popover-content').html(),
         });
 
-
+        var first_time = true; 
         smiley.on('shown.bs.popover', function () {
-            var this_pop = $(this).data('bs.popover').tip.id;
-            $('#'+this_pop).emojiPickerContainer({
-                twemoji: true,
-                width: 235,
-                closeOnSelect: false,
-                onSelect: function (emoji) {
-                    editor.insert(':' + emoji.name + ':');
-                }
-            });
+            if (first_time) {
+                var this_pop = $(this).data('bs.popover').tip.id;
+                $('#'+this_pop).emojiPickerContainer({
+                    twemoji: true,
+                    width: 235,
+                    closeOnSelect: false,
+                    onSelect: function (emoji) {
+                        editor.insert(':' + emoji.name + ':');
+                    }
+                });
+                first_time = false;
+            }            
         });
     }
 
     document.addEventListener('DOMContentLoaded', function (e) {
-        [].forEach.call(document.querySelectorAll('textarea.MDeditor'), mdEditor);
+        [].forEach.call(document.querySelectorAll('textarea.mdeditor'), mdEditor);
     });
 })();
 

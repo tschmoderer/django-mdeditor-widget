@@ -27,6 +27,6 @@ INSTALLED_APPS = [
 3. In the form set the wdget to be "MDeditorWidget":
 
 ```
-self.fields['text'].widget = MDeditorWidget()
+self.fields['text'].widget = MDeditorWidget(attrs={'rows': '30'})
 ```
 
