@@ -103,12 +103,12 @@
         });
 
         toolbar.find('#btn-list').click(function () {
-            editor.insert("\t* ");
+            editor.insert("* ");
             editor.focus();
         });
 
         toolbar.find('#btn-num-list').click(function () {
-            editor.insert("\t1. ");
+            editor.insert("1. ");
             editor.focus();
         });
 
